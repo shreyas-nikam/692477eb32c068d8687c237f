@@ -1,3 +1,4 @@
+
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -7,16 +8,21 @@ from PIL import Image # For simulated image handling
 import math # For mathematical constants, e.g., for radar charts
 import plotly.graph_objects as go # For advanced charts like radar charts
 
-st.set_page_config(page_title="GemmaVision-QuantAdvisor", layout="wide")
+st.set_page_config(page_title="QuLab", layout="wide")
 st.sidebar.image("https://www.quantuniversity.com/assets/img/logo5.jpg")
 st.sidebar.divider()
-st.title("GemmaVision-QuantAdvisor")
+st.title("QuLab")
 st.divider()
 
 st.markdown("""
-In this lab, the GemmaVision-QuantAdvisor Streamlit application serves as an interactive platform for **Financial Data Engineers** to explore, evaluate, and compare Gemma 3 models. It highlights their multimodal capabilities for financial document understanding, different quantization strategies, and performance benchmarks to aid in informed deployment decisions tailored to specific hardware constraints and operational costs.
+### Introduction: GemmaVision-QuantAdvisor
 
-Upon using this application, users will be able to:
+Welcome to the GemmaVision-QuantAdvisor Streamlit Application! This platform is designed specifically for **Financial Data Engineers** to explore, evaluate, and compare the latest Gemma 3 models, focusing on their capabilities for multimodal financial document understanding, quantization strategies, and performance benchmarks.
+
+Large Language Models (LLMs) are becoming increasingly important in financial data processing, from automated report analysis to intelligent invoice parsing. Gemma 3, with its enhanced multimodal features and improved efficiency, offers a compelling solution. This application aims to provide the necessary insights to make informed deployment decisions tailored to specific hardware constraints and operational costs.
+
+#### Learning Goals:
+Upon completing this application, you will be able to:
 -   Understand the architectural and performance characteristics of Gemma 3 models.
 -   Evaluate the impact of different quantization techniques on memory footprint and efficiency.
 -   Compare Gemma 3's performance in multimodal tasks, general intelligence, math, and reasoning against previous Gemma versions and other state-of-the-art models.
@@ -31,17 +37,15 @@ The essential libraries have been imported. `pandas` will be used for structured
 """)
 
 
-page = st.sidebar.selectbox(label="Navigation", options=["Gemma 3 Model Overview", "Quantization Strategies & Memory Footprint", "Multimodal Document Understanding", "Performance Benchmarks"])
+page = st.sidebar.selectbox(label="Navigation", options=["Gemma 3 Model Overview", "Quantization Strategies & Multimodal Understanding", "Performance Benchmarks"])
 
 if page == "Gemma 3 Model Overview":
     from application_pages.page1 import run_page1
     run_page1()
-elif page == "Quantization Strategies & Memory Footprint":
+elif page == "Quantization Strategies & Multimodal Understanding":
     from application_pages.page2 import run_page2
     run_page2()
-elif page == "Multimodal Document Understanding":
+elif page == "Performance Benchmarks":
     from application_pages.page3 import run_page3
     run_page3()
-elif page == "Performance Benchmarks":
-    from application_pages.page4 import run_page4
-    run_page4()
+
