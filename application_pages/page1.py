@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import matplotlib.pyplot as plt
@@ -18,7 +17,6 @@ def run_page1():
     st.latex(r" P_T = P_V + P_E + P_{NE} ")
     st.markdown("All parameter counts are typically expressed in millions.")
 
-    # Code Cell: Data and function definition
     _GEMMA_MODEL_PARAMETERS_DATA = {
         "Gemma3-4B-IT": {
             "Vision Encoder Parameters": 417,
@@ -41,8 +39,7 @@ def run_page1():
         """
         return _GEMMA_MODEL_PARAMETERS_DATA.get(model_name, {})
 
-    # Code Cell: Data processing and display
-    gemma_models = list(_GEMMA_MODEL_PARAMETERS_DATA.keys()) # All available models
+    gemma_models = list(_GEMMA_MODEL_PARAMETERS_DATA.keys())
 
     model_parameters = []
     for model in gemma_models:
@@ -68,7 +65,6 @@ def run_page1():
     A visual representation of the parameter counts provides an immediate understanding of the relative size and complexity of each Gemma 3 model. This is especially useful for Financial Data Engineers when considering the hardware capacity required for deployment.
     """)
 
-    # Code Cell: Plotting function for Streamlit
     def plot_bar_chart(df: pd.DataFrame, x_col: str, y_cols: list, title: str, x_label: str, y_label: str):
         """
         Generates a stacked bar chart of model parameter counts using Matplotlib for Streamlit.
@@ -83,14 +79,20 @@ def run_page1():
         plt.tight_layout()
         st.pyplot(fig)
 
-    # Code Cell: Plotting execution in Streamlit
-    st.write("---") # Separator
+    st.write("---")
     st.subheader("Gemma 3 Model Parameter Distribution")
+    
+    if 'selected_models_for_plot' not in st.session_state:
+        st.session_state.selected_models_for_plot = ["Gemma3-1B", "Gemma3-4B-IT", "Gemma3-12B-IT", "Gemma3-27B-IT"]
+
     selected_models_for_plot = st.multiselect(
         "Select models to visualize parameter counts:",
         options=gemma_models,
-        default=["Gemma3-1B", "Gemma3-4B-IT", "Gemma3-12B-IT", "Gemma3-27B-IT"]
+        default=st.session_state.selected_models_for_plot,
+        key="page1_model_selection"
     )
+    st.session_state.selected_models_for_plot = selected_models_for_plot
+
     if selected_models_for_plot:
         plot_bar_chart(
             model_parameters_df[model_parameters_df['Model'].isin(selected_models_for_plot)],
@@ -106,4 +108,3 @@ def run_page1():
     st.markdown("""
     The stacked bar chart clearly illustrates how the total parameter count scales with model size, and how the distribution across vision encoder, embedding, and non-embedding components changes (or remains constant for the vision encoder across 4B, 12B, 27B models). This visualization highlights the architectural similarities and scaling differences, informing resource allocation for different model sizes.
     """)
-
