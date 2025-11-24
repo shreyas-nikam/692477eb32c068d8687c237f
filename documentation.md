@@ -3,45 +3,124 @@ summary: Gemma 3 Technical Report Documentation
 feedback link: https://docs.google.com/forms/d/e/1FAIpQLSfWkOK-in_bMMoHSZfcIvAeO58PAH9wrDqcxnJABHaxiDqhSA/viewform?usp=sf_link
 environments: Web
 status: Published
-# Building a GemmaVision-QuantAdvisor with Streamlit
+# GemmaVision-QuantAdvisor: A Guide for Financial Data Engineers
 
-## Introduction to GemmaVision-QuantAdvisor and Setup
-Duration: 0:05
+## 1. Introduction to GemmaVision-QuantAdvisor and Application Setup
+Duration: 00:07:00
+
+Welcome to the **GemmaVision-QuantAdvisor** codelab! This application is designed as an interactive platform for **Financial Data Engineers** to delve into the capabilities of **Gemma 3 models**. It provides a comprehensive guide to understanding their multimodal strengths in financial document processing, evaluating various quantization strategies, and analyzing performance benchmarks.
+
+The application's core purpose is to equip developers and data engineers with the necessary insights to make informed decisions regarding the deployment of Gemma 3 models. By the end of this codelab, you will:
+
+*   **Understand the architectural characteristics** and scaling of Gemma 3 models.
+*   **Evaluate the practical impact of different quantization techniques** on memory footprint and computational efficiency, crucial for cost-effective deployment.
+*   **Compare Gemma 3's performance** in complex multimodal tasks, general intelligence, mathematical reasoning, and more, against previous Gemma versions and other state-of-the-art models.
+*   **Utilize quantitative benchmarks and intuitive visualizations** to strategically integrate these models into financial data engineering workflows.
 
 <aside class="positive">
-This introductory step provides essential context for the application. Financial Data Engineers will gain an understanding of why Large Language Models (LLMs) are crucial in finance, the specific value proposition of Gemma 3 models, and the core learning objectives of this codelab. It sets the stage for a deeper dive into model architecture, optimization, and performance.
+This application is a blueprint designed to simulate complex interactions and provide data insights. While it offers a deep dive into model characteristics and benchmarks, actual model inference for multimodal tasks is **simulated** to demonstrate potential functionalities without requiring significant computational resources for live model execution.
 </aside>
 
-Welcome to the GemmaVision-QuantAdvisor Streamlit Application! This platform is designed specifically for **Financial Data Engineers** to explore, evaluate, and compare the latest Gemma 3 models, focusing on their capabilities for multimodal financial document understanding, quantization strategies, and performance benchmarks.
+### Application Architecture
 
-Large Language Models (LLMs) are becoming increasingly important in financial data processing, from automated report analysis to intelligent invoice parsing. Gemma 3, with its enhanced multimodal features and improved efficiency, offers a compelling solution. This application aims to provide the necessary insights to make informed deployment decisions tailored to specific hardware constraints and operational costs.
+The `GemmaVision-QuantAdvisor` is a Streamlit application, which simplifies the creation of interactive web apps using pure Python. Its modular design separates the main application logic from page-specific content, making it easy to navigate and extend.
 
-### Learning Goals:
-Upon completing this codelab, you will be able to:
--   Understand the architectural and performance characteristics of Gemma 3 models.
--   Evaluate the impact of different quantization techniques on memory footprint and efficiency.
--   Compare Gemma 3's performance in multimodal tasks, general intelligence, math, and reasoning against previous Gemma versions and other state-of-the-art models.
--   Utilize quantitative benchmarks and visualizations to guide strategic model deployment in financial data engineering workflows.
+Here's a high-level overview of the application's structure:
 
-### Application Architecture Overview
-
-The GemmaVision-QuantAdvisor is built using Streamlit, a Python framework for creating web applications. The application's structure is modular, consisting of a main `app.py` file for navigation and several `application_pages/*.py` files, each dedicated to a specific functional area.
-
-Here's a high-level flowchart illustrating the application's structure and navigation:
-
-```mermaid
-graph TD
-    A[app.py: Main Application] --> B(Streamlit Sidebar);
-    B --> C{Navigation Selectbox};
-    C --> D[Gemma 3 Model Overview (page1.py)];
-    C --> E[Quantization Strategies & Multimodal Understanding (page2.py)];
-    C --> F[Performance Benchmarks (page3.py)];
 ```
-*Figure 1: Streamlit Application Navigation Flowchart*
+gemma_vision_quant_advisor/
+├── app.py                      # Main Streamlit application entry point
+└── application_pages/
+    ├── __init__.py             # Makes application_pages a Python package
+    ├── page1.py                # Gemma 3 Model Overview
+    ├── page2.py                # Quantization Strategies & Memory Footprint
+    ├── page3.py                # Multimodal Document Understanding
+    └── page4.py                # Performance Benchmarks
+```
 
-### Setting Up the Environment
+The `app.py` file serves as the orchestrator, handling global settings, sidebar navigation, and dynamically loading content from the `application_pages` module based on user selection.
 
-To ensure the smooth execution of this application, we import the necessary Python libraries. These libraries provide functionalities for data manipulation, numerical operations, and advanced data visualization.
+A simple flowchart illustrating the navigation flow:
+
+```
++--+
+|       User Starts App    |
+|   (streamlit run app.py) |
++--+
+          |
+          v
++--+
+|      app.py (Main UI)    |
+|   - Sets page config     |
+|   - Displays title       |
+|   - Sidebar Navigation   |
++--+
+          |
+          | Selects Page
+          v
++--+
+|  "Gemma 3 Model Overview"|
+|    (application_pages/   |
+|         page1.py)        |
++--+
+          |
+          v
++--+
+| "Quantization Strategies |
+|    & Memory Footprint"   |
+|    (application_pages/   |
+|         page2.py)        |
++--+
+          |
+          v
++--+
+|  "Multimodal Document    |
+|      Understanding"      |
+|    (application_pages/   |
+|         page3.py)        |
++--+
+          |
+          v
++--+
+|   "Performance           |
+|      Benchmarks"         |
+|    (application_pages/   |
+|         page4.py)        |
++--+
+```
+
+### Setting Up Your Environment
+
+To run this application, you'll need Python installed (3.8+ recommended) and the necessary libraries.
+
+1.  **Create a virtual environment (optional but recommended):**
+    ```bash
+    python -m venv .venv
+    source .venv/bin/activate # On Windows, use `.venv\Scripts\activate`
+    ```
+2.  **Install the required libraries:**
+    ```bash
+    pip install streamlit pandas matplotlib seaborn numpy Pillow plotly
+    ```
+3.  **Save the application files:**
+    Ensure you have `app.py` in your root directory and the `application_pages` folder containing `page1.py`, `page2.py`, `page3.py`, and `page4.py` in the same directory.
+    
+    <button>
+      [Download Application Files](https://github.com/placeholder_link_to_repo/gemma_vision_quant_advisor)
+    </button>
+    
+4.  **Run the Streamlit application:**
+    Navigate to the directory containing `app.py` in your terminal and execute:
+    ```bash
+    streamlit run app.py
+    ```
+    Your browser should automatically open to the Streamlit application.
+
+<aside class="positive">
+The application handles the imports and initial setup as seen in `app.py`. Upon launching, you will see a confirmation message for successful library imports.
+</aside>
+
+Here's the main `app.py` code snippet to give you a clearer picture:
 
 ```python
 import streamlit as st
@@ -52,33 +131,63 @@ import numpy as np
 from PIL import Image
 import math
 import plotly.graph_objects as go
+
+st.set_page_config(page_title="GemmaVision-QuantAdvisor", layout="wide")
+st.sidebar.image("https://www.quantuniversity.com/assets/img/logo5.jpg")
+st.sidebar.divider()
+st.title("GemmaVision-QuantAdvisor")
+st.divider()
+
+st.markdown("""
+In this lab, the GemmaVision-QuantAdvisor Streamlit application serves as an interactive platform for **Financial Data Engineers** to explore, evaluate, and compare Gemma 3 models. It highlights their multimodal capabilities for financial document understanding, different quantization strategies, and performance benchmarks to aid in informed deployment decisions tailored to specific hardware constraints and operational costs.
+...
+""")
+
+st.markdown("### Setting Up the Environment")
+st.markdown("To ensure the smooth execution of this application, we will import the necessary Python libraries. These libraries provide functionalities for data manipulation, numerical operations, and advanced data visualization.")
+st.success("Required libraries imported successfully.")
+st.markdown("""
+The essential libraries have been imported. `pandas` will be used for structured data, `matplotlib.pyplot` and `seaborn` for visualizations, `numpy` for numerical operations, `Pillow` for simulated image processing, and `math` for utility functions. `streamlit` is for the application framework and `plotly` for advanced visualizations.
+""")
+
+
+page = st.sidebar.selectbox(label="Navigation", options=["Gemma 3 Model Overview", "Quantization Strategies & Memory Footprint", "Multimodal Document Understanding", "Performance Benchmarks"])
+
+if page == "Gemma 3 Model Overview":
+    from application_pages.page1 import run_page1
+    run_page1()
+elif page == "Quantization Strategies & Memory Footprint":
+    from application_pages.page2 import run_page2
+    run_page2()
+elif page == "Multimodal Document Understanding":
+    from application_pages.page3 import run_page3
+    run_page3()
+elif page == "Performance Benchmarks":
+    from application_pages.page4 import run_page4
+    run_page4()
 ```
 
-The essential libraries have been imported. `pandas` will be used for structured data, `matplotlib.pyplot` and `seaborn` for visualizations, `numpy` for numerical operations, `Pillow` for simulated image processing, `math` for utility functions, `streamlit` for the application framework, and `plotly.graph_objects` for advanced visualizations.
+## 2. Exploring Gemma 3 Model Overview: Parameter Counts
+Duration: 00:10:00
 
-## Exploring Gemma 3 Model Architecture and Parameter Counts
-Duration: 0:10
+The first page of the application, "Gemma 3 Model Overview," focuses on the scale and architecture of different Gemma 3 models by examining their parameter counts. Understanding model parameters is fundamental for estimating computational requirements, memory footprint, and potential performance.
 
-This step focuses on understanding the fundamental scale and composition of Gemma 3 models by examining their parameter counts. For Financial Data Engineers, this insight directly translates to hardware requirements, potential inference speeds, and cost implications.
+### Understanding Model Parameter Components
 
-Navigate to the "Gemma 3 Model Overview" section in the sidebar.
+Gemma 3 models are characterized by several parameter types, each contributing to their overall complexity and capabilities:
 
-### Gemma 3 Model Overview: Parameter Counts
+*   **Vision Encoder Parameters ($P_V$):** Parameters specific to the vision component, crucial for multimodal models like Gemma 3 which can process visual data.
+*   **Embedding Parameters ($P_E$):** Parameters used for converting input tokens (text or visual features) into dense vector representations.
+*   **Non-embedding Parameters ($P_{NE}$):** The bulk of the model's parameters, primarily residing within the transformer layers responsible for processing and generating outputs.
 
-The first section of this page explains the parameter counts for Gemma 3 models. Understanding the scale of a model is crucial for assessing its computational requirements. The Gemma 3 family offers models ranging from 1 to 27 billion parameters, each with specific components like vision encoders, embedding layers, and non-embedding parameters. These counts directly influence the model's complexity and potential performance.
-
-As per [2, Table 1] (referring to a hypothetical technical report), the parameter counts for Gemma 3 models are structured as follows:
--   **Vision Encoder Parameters ($P_V$):** Parameters specific to the vision component.
--   **Embedding Parameters ($P_E$):** Parameters for token embeddings.
--   **Non-embedding Parameters ($P_{NE}$):** The majority of the model's parameters, including transformer layers.
-
-The total parameters $P_T$ for a model are given by:
+The total number of parameters ($P_T$) for any given model is the sum of these components:
 $$ P_T = P_V + P_E + P_{NE} $$
-All parameter counts are typically expressed in millions.
+All parameter counts are typically expressed in millions (M).
 
-The application uses a predefined dataset to retrieve and display these parameters:
+The application uses a predefined dictionary `_GEMMA_MODEL_PARAMETERS_DATA` to store this information, simulating data from a technical report.
 
 ```python
+# From application_pages/page1.py
 _GEMMA_MODEL_PARAMETERS_DATA = {
     "Gemma3-4B-IT": {
         "Vision Encoder Parameters": 417,
@@ -100,13 +209,9 @@ def get_gemma_model_parameters(model_name: str) -> dict:
     Returns an empty dict if the model is not found.
     """
     return _GEMMA_MODEL_PARAMETERS_DATA.get(model_name, {})
-```
 
-The data is then processed into a Pandas DataFrame and displayed:
-
-```python
-# Code from page1.py:
 gemma_models = list(_GEMMA_MODEL_PARAMETERS_DATA.keys())
+
 model_parameters = []
 for model in gemma_models:
     params = get_gemma_model_parameters(model)
@@ -123,15 +228,16 @@ st.markdown("Gemma 3 Model Parameter Counts (in Millions):")
 st.dataframe(model_parameters_df.set_index('Model'))
 ```
 
-This table provides a clear overview of the parameter distribution. Notice how the `Gemma3-1B` model has 0 Vision Encoder Parameters, indicating it's a text-only model, while the larger models share the same Vision Encoder, suggesting a consistent multimodal architecture component.
+You can observe that the `Gemma3-1B` model lacks a Vision Encoder component, indicating it's a text-only model in this context, while larger models like `Gemma3-4B-IT`, `Gemma3-12B-IT`, and `Gemma3-27B-IT` share the same Vision Encoder, scaling primarily in their Embedding and Non-embedding parameters.
 
 ### Visualizing Model Parameter Counts
 
-A visual representation of the parameter counts provides an immediate understanding of the relative size and complexity of each Gemma 3 model. This is especially useful for Financial Data Engineers when considering the hardware capacity required for deployment.
+The application provides an interactive stacked bar chart to visualize the distribution of parameter counts across selected Gemma 3 models. This visual aid is invaluable for quickly comparing model sizes and understanding their architectural breakdown.
 
-The application uses a Matplotlib function to generate stacked bar charts:
+The `plot_bar_chart` function uses `matplotlib.pyplot` to render the visualization:
 
 ```python
+# From application_pages/page1.py
 def plot_bar_chart(df: pd.DataFrame, x_col: str, y_cols: list, title: str, x_label: str, y_label: str):
     """
     Generates a stacked bar chart of model parameter counts using Matplotlib for Streamlit.
@@ -145,18 +251,21 @@ def plot_bar_chart(df: pd.DataFrame, x_col: str, y_cols: list, title: str, x_lab
     ax.legend(title='Parameter Type')
     plt.tight_layout()
     st.pyplot(fig)
-```
 
-The Streamlit interface allows you to interactively select models for visualization:
-
-```python
-# Code from page1.py:
+# Streamlit UI for selection and plotting
 st.subheader("Gemma 3 Model Parameter Distribution")
+
+if 'selected_models_for_plot' not in st.session_state:
+    st.session_state.selected_models_for_plot = ["Gemma3-1B", "Gemma3-4B-IT", "Gemma3-12B-IT", "Gemma3-27B-IT"]
+
 selected_models_for_plot = st.multiselect(
     "Select models to visualize parameter counts:",
     options=gemma_models,
-    default=["Gemma3-1B", "Gemma3-4B-IT", "Gemma3-12B-IT", "Gemma3-27B-IT"]
+    default=st.session_state.selected_models_for_plot,
+    key="page1_model_selection"
 )
+st.session_state.selected_models_for_plot = selected_models_for_plot
+
 if selected_models_for_plot:
     plot_bar_chart(
         model_parameters_df[model_parameters_df['Model'].isin(selected_models_for_plot)],
@@ -170,30 +279,24 @@ else:
     st.info("Please select at least one model to visualize parameter counts.")
 ```
 
-Experiment with the multiselect widget to visualize how parameter counts scale and distribute across different Gemma 3 models. This stacked bar chart clearly illustrates how the total parameter count scales with model size, and how the distribution across vision encoder, embedding, and non-embedding components changes.
+Interact with the `multiselect` widget to compare different Gemma 3 models. Notice how the bar chart dynamically updates, showing the parameter distribution for your chosen models. This helps in understanding which components contribute most to a model's total size.
 
-## Understanding Quantization Strategies and Memory Footprints
-Duration: 0:15
+## 3. Understanding Quantization Strategies & Memory Footprint
+Duration: 00:15:00
 
-This step delves into the critical area of model optimization: quantization. For Financial Data Engineers, optimizing model deployment is paramount for controlling operational costs and meeting real-time processing demands. This section also introduces the simulated multimodal capabilities, a powerful feature for financial document analysis.
+The "Quantization Strategies & Memory Footprint" page provides critical insights into optimizing LLMs for deployment. Quantization is a technique that reduces the precision of model weights and activations, significantly impacting memory usage and inference speed. This is particularly important for Financial Data Engineers operating under hardware constraints or aiming to reduce operational costs.
 
-Navigate to the "Quantization Strategies & Multimodal Understanding" section in the sidebar.
+### Key Quantization Concepts
 
-### Understanding Quantization Strategies
+*   **bfloat16 (Brain Float 16):** A 16-bit floating-point format that offers a good balance between range and precision. It's often used for training and as the raw checkpoint format for LLMs. A `bfloat16` number is represented with $16$ bits, typically comprising $1$ sign bit, $8$ exponent bits, and $7$ mantissa bits.
+*   **Int4 (4-bit Integer):** A highly aggressive quantization strategy that represents weights as $4$-bit integers. This drastically reduces the memory footprint (often by 4x compared to `bfloat16`) but can introduce a slight trade-off in model accuracy.
+*   **SFP8 (Scaled Float 8):** An 8-bit floating-point format designed for efficiency. It aims to strike a balance between the memory savings of `Int4` and the precision retention of `bfloat16`.
+*   **KV Caching (Key-Value Caching):** During inference, especially for long contexts, the Key and Value states (activations) of previous tokens are stored to avoid recomputing them. This significantly speeds up sequence generation but can consume substantial memory. Quantizing the KV cache further reduces this memory overhead.
 
-Quantization is a critical technique for optimizing LLMs for deployment, especially in resource-constrained environments or for reducing operational costs. It involves reducing the precision of model weights and activations, leading to smaller memory footprints and faster inference. Gemma 3 models support various quantization strategies.
-
-Key quantization concepts include:
--   **bfloat16 (Brain Float 16):** A 16-bit floating-point format that offers a good balance between range and precision, commonly used for training and raw model checkpoints. Represented with $16$ bits, typically $1$ sign bit, $8$ exponent bits, and $7$ mantissa bits.
--   **Int4 (4-bit Integer):** A quantization strategy that represents weights as $4$-bit integers, significantly reducing memory usage compared to bfloat16. This often comes with a slight trade-off in accuracy.
--   **SFP8 (Scaled Float 8):** A less common but emerging $8$-bit floating-point format designed for efficiency.
--   **KV Caching:** Key-Value caching stores intermediate activations from previous tokens to avoid recomputing them, which is essential for long-context inference but consumes significant memory. Quantizing KV cache also helps reduce memory.
-
-As shown in [3, Table 3] (referring to a hypothetical technical report), quantization can lead to substantial memory savings for both model weights and KV caching.
-
-The application includes a utility function to describe these strategies:
+The application includes a `describe_quantization_strategy` function to provide explanations for these strategies:
 
 ```python
+# From application_pages/page2.py
 def describe_quantization_strategy(strategy_name: str) -> str:
     """
     Returns a descriptive string for a given quantization strategy.
@@ -206,16 +309,18 @@ def describe_quantization_strategy(strategy_name: str) -> str:
         "KV Cache Status (Yes)": "Memory used for model weights *and* the Key-Value cache."
     }
     return descriptions.get(strategy_name, "Unknown quantization strategy.")
+
+st.markdown(f"**Description of bfloat16:** {describe_quantization_strategy('bfloat16')}")
+st.markdown(f"**Description of Int4:** {describe_quantization_strategy('Int4')}")
+st.markdown(f"**Description of SFP8:** {describe_quantization_strategy('SFP8')}")
 ```
 
-The descriptions are then displayed using `st.markdown`.
+### Memory Footprints Comparison
 
-### Memory Footprints (in GB) Comparison
-
-This section presents a comparison of memory footprints for raw (bfloat16) and quantized checkpoints for weights and KV caching (+KV) at 32,768 context size, based on Table 3 from the technical report.
+The application presents a simulated comparison of memory footprints (in GB) for raw (`bfloat16`) and quantized checkpoints, both for model weights alone and with the inclusion of KV caching (+KV) at a context size of 32,768.
 
 ```python
-# Data from page2.py:
+# From application_pages/page2.py
 memory_footprint_data = {
     "Model": ["1B", "1B +KV", "4B", "4B +KV", "12B", "12B +KV", "27B", "27B +KV"],
     "bf16": [2.0, 2.9, 8.0, 12.7, 24.0, 38.9, 54.0, 72.7],
@@ -223,43 +328,61 @@ memory_footprint_data = {
     "SFP8": [1.0, 1.9, 4.4, 9.1, 12.4, 27.3, 27.4, 46.1]
 }
 memory_footprint_df = pd.DataFrame(memory_footprint_data)
+
 st.dataframe(memory_footprint_df.set_index('Model'))
 ```
 
-This table highlights the significant memory savings achieved through different quantization strategies.
+This table immediately shows the significant memory savings achieved through quantization, especially when considering the large memory demands of KV caching.
 
 ### Interactive Memory Footprint Visualization
 
-The application provides an interactive visualization to compare memory footprints:
+To make this data more digestible, the application offers an interactive visualization. You can select specific Gemma 3 models, choose a quantization strategy, and toggle whether to include KV cache memory in the comparison.
+
+The data is first preprocessed to separate weights-only data from KV cache data for better plotting control:
 
 ```python
-# Code from page2.py:
+# From application_pages/page2.py
+weights_only_df = memory_footprint_df[~memory_footprint_df['Model'].str.contains(r'\+KV')]
+kv_cache_df = memory_footprint_df[memory_footprint_df['Model'].str.contains(r'\+KV')].copy()
+kv_cache_df['Model'] = kv_cache_df['Model'].str.replace(r' \+KV', '', regex=True)
+
+# Streamlit UI for interaction and plotting
+st.subheader("Interactive Memory Footprint Visualization")
+
+if 'models_for_memory' not in st.session_state:
+    st.session_state.models_for_memory = ["4B", "27B"]
+
 models_for_memory = st.multiselect(
     "Select models to compare memory footprints:",
     options=["1B", "4B", "12B", "27B"],
-    default=["4B", "27B"],
-    key="models_for_memory_page2"
+    default=st.session_state.models_for_memory,
+    key="page2_model_selection"
 )
+st.session_state.models_for_memory = models_for_memory
 
 if models_for_memory:
     col1, col2 = st.columns(2)
     with col1:
+        if 'selected_quant_strategy' not in st.session_state:
+            st.session_state.selected_quant_strategy = "bf16"
         selected_quant_strategy = st.radio(
             "Select Quantization Strategy:",
             options=["bf16", "Int4", "SFP8"],
-            index=0,
+            index=["bf16", "Int4", "SFP8"].index(st.session_state.selected_quant_strategy),
             key="mem_quant_strategy"
         )
+        st.session_state.selected_quant_strategy = selected_quant_strategy
     with col2:
-        show_kv_cache = st.checkbox("Show KV Cache Memory", value=True, key="mem_kv_cache")
+        if 'show_kv_cache' not in st.session_state:
+            st.session_state.show_kv_cache = True
+        show_kv_cache = st.checkbox("Show KV Cache Memory", value=st.session_state.show_kv_cache, key="mem_kv_cache")
+        st.session_state.show_kv_cache = show_kv_cache
 
     plot_df = pd.DataFrame()
     for model in models_for_memory:
-        # Get weights only
         weights_data = weights_only_df[weights_only_df['Model'] == model][selected_quant_strategy].iloc[0]
         plot_df = pd.concat([plot_df, pd.DataFrame([{'Model': f"{model} (Weights)", 'Memory (GB)': weights_data}])], ignore_index=True)
         
-        # Get KV cache if selected
         if show_kv_cache:
             kv_data = kv_cache_df[kv_cache_df['Model'] == model][selected_quant_strategy].iloc[0]
             plot_df = pd.concat([plot_df, pd.DataFrame([{'Model': f"{model} (Weights + KV)", 'Memory (GB)': kv_data}])], ignore_index=True)
@@ -275,123 +398,125 @@ if models_for_memory:
 else:
     st.info("Please select at least one model to visualize memory footprints.")
 ```
-Use the interactive widgets to select different models, quantization strategies, and toggle KV cache memory to observe how memory requirements change. This visualization is crucial for planning hardware infrastructure for model deployment.
 
-## Simulating Multimodal Document Understanding
-Duration: 0:10
+Experiment with the `multiselect`, `radio` buttons, and `checkbox` to observe how different quantization strategies and the inclusion of KV caching impact the memory requirements for various Gemma 3 models. This hands-on visualization directly informs hardware provisioning and deployment strategies.
 
-This step highlights Gemma 3's multimodal capabilities, a key feature for financial data engineers working with diverse document types. The application provides a simulated environment to demonstrate these functionalities.
+## 4. Simulating Multimodal Document Understanding
+Duration: 00:10:00
 
-### Multimodal Document Understanding
-
-This section allows Financial Data Engineers to simulate multimodal tasks using Gemma 3 models. You can upload financial documents such as scanned annual reports, invoices, or charts and select a task to extract key information.
+The "Multimodal Document Understanding" section allows Financial Data Engineers to explore the simulated capabilities of Gemma 3 models in processing financial documents that combine text and visual information. This is a critical area for automating tasks like invoice processing, annual report analysis, and chart interpretation.
 
 <aside class="negative">
-<b>Important Note:</b> The actual Gemma 3 model inference for document understanding is simulated for this application, as a full model integration is beyond the scope of this blueprint. The outputs are illustrative.
+It's important to remember that the actual Gemma 3 model inference for document understanding is **simulated** within this application. A full, live model integration would require significant computational resources and API access, which is beyond the scope of this blueprint. The simulation demonstrates the *potential* outcomes and functionalities.
 </aside>
 
-Here's a conceptual flowchart for the simulated multimodal analysis:
+### Document Upload and Analysis Settings
 
-```mermaid
-graph TD
-    A[User Uploads Financial Document] --> B{Document Type?};
-    B -- JPG/PNG --> C[Display Image];
-    B -- PDF --> D[Simulate PDF Display];
-    C --> E[User Selects Multimodal Task & Gemma Model];
-    D --> E;
-    E --> F{Run Multimodal Analysis Button};
-    F --> G[Simulate Model Inference];
-    G --> H{Display Simulated Output};
-    H -- Extract Key Figures --> I[Show Key-Value Pairs];
-    H -- OCR Text Extraction --> J[Show Text Area];
-    H -- Table Data Extraction --> K[Show DataFrame];
-```
-*Figure 2: Simulated Multimodal Analysis Flowchart*
-
-The Streamlit interface for this section includes a file uploader, task selection, and model selection:
+The page starts with a `st.file_uploader` to simulate uploading financial documents. It supports common image and document formats.
 
 ```python
-# Code from page2.py:
-uploaded_file = st.file_uploader("Upload a Financial Document (JPG, PNG, PDF)", type=["jpg", "png", "pdf"], key="mm_doc_uploader")
+# From application_pages/page3.py
+if 'uploaded_file' not in st.session_state:
+    st.session_state.uploaded_file = None
+uploaded_file = st.file_uploader("Upload a Financial Document (JPG, PNG, PDF)", type=["jpg", "png", "pdf"], key="file_uploader")
+st.session_state.uploaded_file = uploaded_file
 
-if uploaded_file is not None:
+if st.session_state.uploaded_file is not None:
     st.subheader("Uploaded Document")
-    if uploaded_file.type == "application/pdf":
+    if st.session_state.uploaded_file.type == "application/pdf":
         st.warning("PDF processing is conceptual; displaying placeholder for PDF content.")
         st.write("Displaying first page of PDF as image (simulated).")
-        st.image("https://via.placeholder.com/600x400.png?text=PDF+Content+Placeholder", caption="Simulated PDF Content", use_column_width=True)
+        st.image("https://via.placeholder.com/600x400.png?text=PDF+Content+Placeholder", caption="Simulated PDF Content")
     else:
-        st.image(uploaded_file, caption="Uploaded Image Document", use_column_width=True)
+        st.image(st.session_state.uploaded_file, caption="Uploaded Image Document", use_column_width=True)
 
     st.subheader("Multimodal Analysis Settings")
     col1, col2 = st.columns(2)
     with col1:
+        if 'multimodal_task' not in st.session_state:
+            st.session_state.multimodal_task = "Extract Key Figures (e.g., total amount, date)"
         multimodal_task = st.selectbox(
             "Select Multimodal Task:",
             options=["Extract Key Figures (e.g., total amount, date)", "OCR Text Extraction", "Table Data Extraction"],
-            index=0,
-            key="multimodal_task_select"
+            index=["Extract Key Figures (e.g., total amount, date)", "OCR Text Extraction", "Table Data Extraction"].index(st.session_state.multimodal_task),
+            key="multimodal_task_selection"
         )
+        st.session_state.multimodal_task = multimodal_task
     with col2:
+        if 'analysis_model' not in st.session_state:
+            st.session_state.analysis_model = "Gemma3-4B-IT"
         analysis_model = st.selectbox(
             "Select Gemma 3 Model for Analysis:",
             options=["Gemma3-4B-IT", "Gemma3-27B-IT"],
-            index=0,
-            key="analysis_model_select"
+            index=["Gemma3-4B-IT", "Gemma3-27B-IT"].index(st.session_state.analysis_model),
+            key="analysis_model_selection"
         )
+        st.session_state.analysis_model = analysis_model
 
-    if st.button("Run Multimodal Analysis", key="run_mm_analysis_button"):
-        with st.spinner(f"Running {multimodal_task} with {analysis_model}...")):
-            st.info("Simulating analysis...")
-            # Simulated output based on task and model
-            if multimodal_task == "Extract Key Figures (e.g., total amount, date)":
-                st.success("Key figures extracted successfully (simulated).")
-                st.markdown(f"""
-                **Simulated Output for {analysis_model}**:
-                -   **Total Amount:** $43.07
-                -   **Currency:** CHF
-                -   **Date:** 04.04.2024
-                -   **Item:** Zürcher Geschnetzeltes + Rösti
-                -   **Extracted from:** Uploaded Financial Document
-                """)
-            elif multimodal_task == "OCR Text Extraction":
-                st.success("OCR text extracted successfully (simulated).")
-                st.text_area(
-                    "Extracted Text:",
-                    "This is simulated OCR text from your uploaded financial document. "
-                    "Actual extraction would involve an OCR model processing the image or PDF. "
-                    "Example: 'Total CHF: 88.40', '1x Zürcher Geschnetzeltes + Rösti at CHF 36.50'",
-                    height=200,
-                    key="ocr_text_output"
-                )
-            elif multimodal_task == "Table Data Extraction":
-                st.success("Table data extracted successfully (simulated).")
-                simulated_table_data = pd.DataFrame({
-                    "Item": ["Zürcher Geschnetzeltes + Rösti", "Preiselbeersauce", "4 dl ZHK Hausbier"],
-                    "Quantity": [1, 1, 2],
-                    "Unit Price (CHF)": [36.50, 1.80, 6.80],
-                    "Total (CHF)": [36.50, 1.80, 13.60]
-                })
-                st.dataframe(simulated_table_data)
+    if st.button("Run Multimodal Analysis"):
+        # ... (analysis simulation logic)
 else:
     st.info("Please upload a financial document to perform multimodal analysis.")
 ```
 
-Try uploading a sample image (e.g., a screenshot of an invoice) and running a simulated analysis. This demonstrates how Gemma 3 could be leveraged to automate tasks like expense reporting, contract analysis, or data extraction from financial statements.
+Once a file is uploaded, you can select from different multimodal tasks and choose a Gemma 3 model for the *simulated* analysis. The application supports:
 
-## Analyzing Gemma 3 Performance Benchmarks
-Duration: 0:15
+*   **Extract Key Figures:** Identifying specific data points like total amounts, dates, or item descriptions.
+*   **OCR Text Extraction:** Converting image-based text into machine-readable format.
+*   **Table Data Extraction:** Identifying and extracting structured data from tables within documents.
 
-This final step provides a comprehensive overview of Gemma 3's performance compared to other leading models across various benchmarks. This is crucial for Financial Data Engineers to justify model selection and predict real-world efficacy in specific financial applications.
+### Simulated Analysis Output
 
-Navigate to the "Performance Benchmarks" section in the sidebar.
-
-### Chatbot Arena Elo Scores (Table 5 equivalent)
-
-This section presents the evaluation of Gemma 3 27B IT model in the Chatbot Arena based on blind side-by-side evaluations by human raters. Scores are based on the Elo rating system, a method commonly used in chess and other competitive games to rank players. Higher Elo scores indicate better performance relative to other models.
+Upon clicking "Run Multimodal Analysis," the application simulates the processing and provides a predefined output based on the selected task. This showcases the type of results a real Gemma 3 model could provide.
 
 ```python
-# Data from page3.py:
+# From application_pages/page3.py
+if st.button("Run Multimodal Analysis"):
+    with st.spinner(f"Running {st.session_state.multimodal_task} with {st.session_state.analysis_model}..."):
+        st.info("Simulating analysis...")
+        if st.session_state.multimodal_task == "Extract Key Figures (e.g., total amount, date)":
+            st.success("Key figures extracted successfully (simulated).")
+            st.markdown(f"""
+            **Simulated Output for {st.session_state.analysis_model}**:
+            -   **Total Amount:** $43.07
+            -   **Currency:** CHF
+            -   **Date:** 04.04.2024
+            -   **Item:** Zürcher Geschnetzeltes + Rösti
+            -   **Extracted from:** Uploaded Financial Document
+            """)
+        elif st.session_state.multimodal_task == "OCR Text Extraction":
+            st.success("OCR text extracted successfully (simulated).")
+            st.text_area(
+                "Extracted Text:",
+                "This is simulated OCR text from your uploaded financial document. "
+                "Actual extraction would involve an OCR model processing the image or PDF. "
+                "Example: 'Total CHF: 88.40', '1x Zürcher Geschnetzeltes + Rösti at CHF 36.50'",
+                height=200
+            )
+        elif st.session_state.multimodal_task == "Table Data Extraction":
+            st.success("Table data extracted successfully (simulated).")
+            simulated_table_data = pd.DataFrame({
+                "Item": ["Zürcher Geschnetzeltes + Rösti", "Preiselbeersauce", "4 dl ZHK Hausbier"],
+                "Quantity": [1, 1, 2],
+                "Unit Price (CHF)": [36.50, 1.80, 6.80],
+                "Total (CHF)": [36.50, 1.80, 13.60]
+            })
+            st.dataframe(simulated_table_data)
+```
+
+This simulation helps visualize the potential of Gemma 3 models in automating document-heavy tasks within finance, such as reconciling invoices, processing expense reports, or extracting data from financial statements.
+
+## 5. Analyzing Performance Benchmarks
+Duration: 00:15:00
+
+The "Performance Benchmarks" page is crucial for understanding how Gemma 3 models stack up against other leading models. It presents various benchmarks, offering a quantitative view of their general intelligence, reasoning, and specialized abilities.
+
+### Chatbot Arena Elo Scores
+
+The Chatbot Arena uses a blind side-by-side evaluation by human raters to rank models using the Elo rating system, similar to chess. Higher Elo scores indicate better performance as perceived by human evaluators.
+
+```python
+# From application_pages/page4.py
 chatbot_arena_data = {
     "Rank": [1, 1, 3, 3, 3, 6, 6, 8, 9, 9, 9, 9, 13, 14, 14, 14, 14, 18, 18, 18, 18, 28, 38, 39, 59],
     "Model": ["Grok-3-Preview-02-24", "GPT-4.5-Preview", "Gemini-2.0-Flash-Thinking-Exp-01-21",
@@ -407,14 +532,15 @@ chatbot_arena_data = {
 chatbot_arena_df = pd.DataFrame(chatbot_arena_data)
 st.dataframe(chatbot_arena_df.set_index('Rank'))
 ```
-Observe Gemma 3 27B IT's ranking relative to other major models. This provides a qualitative sense of its general performance in open-ended conversations.
 
-### Summary of Pre-trained Model Abilities (Figure 2 equivalent)
+This table gives Financial Data Engineers context on how Gemma 3 models compare in real-world conversational scenarios against a wide array of competitors.
 
-This radar chart provides a simplified summary of the performance of different pre-trained models from Gemma 2 and Gemma 3 across general abilities: Vision, Code, Science, Factuality, Reasoning, and Multilingual. (Conceptual visualization based on Figure 2 from the technical report).
+### Summary of Pre-trained Model Abilities (Radar Chart)
+
+A radar chart is an excellent tool for visualizing the performance of models across multiple dimensions or categories simultaneously. This section uses a radar chart to compare Gemma 2 and Gemma 3 models on general abilities like Vision, Code, Science, Factuality, Reasoning, and Multilingual capabilities.
 
 ```python
-# Data for Radar Chart (Synthesized based on Figure 2 concept):
+# From application_pages/page4.py
 radar_data = {
     'Category': ['Vision', 'Code', 'Science', 'Factuality', 'Reasoning', 'Multilingual'],
     'Gemma 2 2B': [0.5, 0.4, 0.6, 0.5, 0.4, 0.3],
@@ -426,17 +552,20 @@ radar_data = {
 }
 radar_df = pd.DataFrame(radar_data)
 
-# Create Plotly Radar Chart:
 categories = radar_df['Category'].tolist()
 
 fig = go.Figure()
 
+if 'selected_radar_models' not in st.session_state:
+    st.session_state.selected_radar_models = ['Gemma 3 4B', 'Gemma 3 27B']
+
 selected_radar_models = st.multiselect(
     "Select models for Radar Chart comparison:",
     options=['Gemma 2 2B', 'Gemma 3 4B', 'Gemma 2 9B', 'Gemma 3 12B', 'Gemma 2 27B', 'Gemma 3 27B'],
-    default=['Gemma 3 4B', 'Gemma 3 27B'],
-    key="radar_model_select"
+    default=st.session_state.selected_radar_models,
+    key="radar_chart_selection"
 )
+st.session_state.selected_radar_models = selected_radar_models
 
 for model in selected_radar_models:
     fig.add_trace(go.Scatterpolar(
@@ -457,14 +586,15 @@ fig.update_layout(
 )
 st.plotly_chart(fig, use_container_width=True)
 ```
-Use the multiselect to compare different Gemma 2 and Gemma 3 models. Overall, the radar charts indicate that newer Gemma 3 versions generally show improved performance across most categories, with a notable enhancement in vision capabilities due to their multimodal architecture.
+
+Use the `multiselect` widget to compare different Gemma 2 and Gemma 3 models. Observe how newer Gemma 3 versions generally exhibit improved performance across most categories, particularly in vision due to their enhanced multimodal architecture.
 
 ### Detailed Instruction Fine-tuned (IT) Model Benchmarks
 
-This section provides performance data for instruction fine-tuned (IT) models compared to Gemini 1.5, Gemini 2.0, and Gemma 2 on zero-shot benchmarks across different abilities. (Data from Table 6 of the technical report).
+This table provides a granular view of instruction fine-tuned (IT) models across various zero-shot benchmarks, giving a comprehensive understanding of their capabilities in specific domains.
 
 ```python
-# Data from page3.py:
+# From application_pages/page4.py
 it_benchmarks_data = {
     "Benchmark": ["MMLU-Pro", "LiveCodeBench", "Bird-SQL (dev)", "GPQA Diamond", "SimpleQA", "FACTS Grounding",
                   "Global MMLU-Lite", "MATH", "HiddenMath", "MMMU (val)"],
@@ -483,4 +613,29 @@ it_benchmarks_data = {
 it_benchmarks_df = pd.DataFrame(it_benchmarks_data)
 st.dataframe(it_benchmarks_df.set_index('Benchmark'))
 ```
-This detailed table shows the performance of various instruction-tuned models across a range of benchmarks, providing a comprehensive view of their capabilities in different domains, from general knowledge (MMLU-Pro) to coding (LiveCodeBench) and mathematical reasoning (MATH, HiddenMath). Pay attention to how Gemma 3 models compare against their Gemma 2 predecessors and leading Gemini models. This data is invaluable for selecting the right model for specific financial tasks requiring high accuracy in particular domains.
+
+This table allows Financial Data Engineers to directly compare the performance of different Gemma 3 instruction-tuned models against various Gemini models and previous Gemma 2 versions across key benchmarks relevant to real-world applications.
+
+## 6. Conclusion and Further Exploration
+Duration: 00:03:00
+
+Congratulations! You have successfully navigated through the **GemmaVision-QuantAdvisor** Streamlit application, gaining valuable insights into the Gemma 3 model family.
+
+In this codelab, you have:
+*   **Explored the architectural scale** of Gemma 3 models by analyzing their parameter counts and distributions.
+*   **Understood the impact of quantization strategies** (bfloat16, Int4, SFP8) on memory footprints, including the significant role of KV caching.
+*   **Simulated multimodal document understanding tasks**, demonstrating Gemma 3's potential in extracting financial information from various document types.
+*   **Analyzed comprehensive performance benchmarks**, comparing Gemma 3 with other state-of-the-art models across general abilities and instruction-tuned tasks.
+
+The GemmaVision-QuantAdvisor application serves as a powerful tool for Financial Data Engineers to evaluate and select the most suitable Gemma 3 model for their specific deployment scenarios, balancing performance, resource constraints, and operational costs.
+
+### Next Steps
+
+To further your understanding and application of Gemma 3 models, consider the following:
+
+1.  **Deep Dive into Quantization:** Research the specific implications of different quantization levels on model accuracy for financial tasks.
+2.  **Explore Gemma 3 APIs:** Investigate Google's official documentation and APIs for Gemma 3 to integrate these models into your actual data pipelines.
+3.  **Real-world Integration:** Experiment with deploying quantized Gemma 3 models on edge devices or cloud platforms to observe actual performance and memory usage.
+4.  **Custom Fine-tuning:** Learn about fine-tuning Gemma 3 models on proprietary financial datasets to enhance their performance on niche tasks relevant to your organization.
+
+Thank you for completing this codelab. We hope this guide empowers you to make informed decisions and leverage the full potential of Gemma 3 models in your financial data engineering endeavors!
